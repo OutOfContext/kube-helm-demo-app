@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceAName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceAName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceAName }}
+    spec:
+      containers:
+        - name: {{ .Values.serviceAName }}
+          image: raffaelhu/service_a:latest  # Ersetze durch das tatsächliche Docker-Image
+          env:
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: db-secret
+                key: username
+          - name: DB_PASSWORD
+            valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+          envFrom:
+            - configMapRef:
+                name: service-a-config
+          ports:
+            - containerPort: 8081
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: service-festplatte
+              mountPath: /data
+      volumes:
+        - name: service-festplatte
+          persistentVolumeClaim:
+            claimName: service-festplatten-anspruch
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceBName }}
+  namespace: schulung
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceBName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceBName }}
+    spec:
+      containers:
+        - name: {{ .Values.serviceBName }}
+          image: {{ .Values.image.path }}/service_b:latest  # Ersetze durch das tatsächliche Docker-Image
+          ports:
+            - containerPort: 8082
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceCName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceCName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceCName }}
+    spec:
+      containers:
+        - name: {{ .Values.serviceCName }}
+          image: raffaelhu/discovery_server:latest  # Ersetze durch das tatsächliche Docker-Image
+          ports:
+            - containerPort: 8761

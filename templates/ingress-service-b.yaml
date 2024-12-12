@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: service-b-ingress
+  namespace: schulung # Setze hier deinen Namespace
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: mycluster.local  # Der gemeinsame Hostname für alle Services
+      http:
+        paths:
+          - path: /service-a(/|$)(.*)  # Anfragen an /service-a werden an Service A weitergeleitet
+            pathType: Prefix
+            backend:
+              service:
+                name: service-a  # Kubernetes Service Name für Service A
+                port:
+                  number: 8081   # Port des Service A
+          - path: /service-b(/|$)(.*)  # Anfragen an /service-b werden an Service B weitergeleitet
+            pathType: Prefix
+            backend:
+              service:
+                name: service-b  # Kubernetes Service Name für Service B
+                port:
+                  number: 8082   # Port des Service B

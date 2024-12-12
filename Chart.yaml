@@ -1,0 +1,15 @@
+annotations:
+  category: Application
+
+apiVersion: v1
+appVersion: 1.0.0
+description: Provides a discovery server with two seperate services to showcase how to use kubernetes.
+home: https://primiq-solutions.com
+keywords:
+- eureka
+- spring
+- java
+maintainers:
+- name: Raffael Huhnerschulte
+name: kubernetes-demo-app
+version: 1.0.0

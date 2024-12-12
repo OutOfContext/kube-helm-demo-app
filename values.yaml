@@ -1,0 +1,8 @@
+namespace: schulung
+replicaCount: 1
+serviceAName: route-service
+serviceBName: consumer-service
+serviceCName: discovery-server
+image:
+  path: raffaelhu/service-a
+  tag:
