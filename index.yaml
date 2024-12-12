@@ -1,0 +1,23 @@
+apiVersion: v1
+entries:
+  kubernetes-demo-app:
+  - annotations:
+      category: Application
+    apiVersion: v1
+    appVersion: 1.0.0
+    created: "2024-12-12T13:32:14.3681503+01:00"
+    description: Provides a discovery server with two seperate services to showcase
+      how to use kubernetes.
+    digest: 3ae4eb585470adb61fd1a600fa22bdf39d9301ec18f941a4575a77428d9e44e4
+    home: https://primiq-solutions.com
+    keywords:
+    - eureka
+    - spring
+    - java
+    maintainers:
+    - name: Raffael Huhnerschulte
+    name: kubernetes-demo-app
+    urls:
+    - https://outofcontext.github.io/kube-helm-demo-app/kubernetes-demo-app-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-12-12T13:32:14.3663364+01:00"
