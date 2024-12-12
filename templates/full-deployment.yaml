@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.serviceBName }}
-          image: {{ .Values.image.path }}/service_b:latest  # Ersetze durch das tatsächliche Docker-Image
+          image: raffaelhu/service_b:latest  # Ersetze durch das tatsächliche Docker-Image
           ports:
             - containerPort: 8082
 
